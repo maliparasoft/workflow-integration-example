@@ -52,7 +52,7 @@ jobs:
         # Prerequisites:
         # 1. Configure the installed Jtest package or add the desired settings to the "jtest" block of your buildscript.
         # 2. Uncomment the following to run the "Recommended Rules" test configuration:
-        run: ./gradlew -I ${{secrets.JTEST_INIT}} clean assemble jtest -Djtest.report.format=sarif
+        run: ./gradlew -I ${{secrets.JTEST_INIT}} clean assemble jtest "-Djtest.report.format=sarif"
         # or uncomment the following to run the specified test configuration:
         # run: ./gradlew clean assemble jtest "-Djtest.config=builtin://Recommended Rules"
 
