@@ -20,58 +20,37 @@ on:
   workflow_dispatch:
 
 jobs:
-  jtest:
-    name: Jtest job execution
-    # The type of runner that the job will run on
+  build:
     runs-on: self-hosted
-    
+
+    # prepare environment
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run static analysis
-        # -------------------------------------------------
-        # Prerequisites:
-        # 1. Configure working directory if it is different than repository root
-        working-directory: jtest-demo
-        # 2. Enable one of the "Running" steps below.
-        # If you want to fail the step when any Jtest violation is reported, add "-Djtest.fail=true" to Jtest parameters run options.
-          
-        # -------------------------------------------------
-        # Running with Maven
-        # Prerequisites:
-        # 1. Configure your Maven setup by following the Jtest User Guide:
-        # https://docs.parasoft.com/display/JTEST20202/Configuring+the+Jtest+Plugin+for+Maven
-        # 2. Uncomment the following to run the "Recommended Rules" test configuration:
-        # run: ./mvnw jtest:jtest
-        # or uncomment the following to run the specified test configuration:
-        # run: ./mvnw clean jtest:jtest "-Djtest.config=builtin://Recommended Rules"
-        
-        # -------------------------------------------------
-        # Running with Gradle
-        # Prerequisites:
-        # 1. Configure the installed Jtest package or add the desired settings to the "jtest" block of your buildscript.
-        # 2. Uncomment the following to run the "Recommended Rules" test configuration:
-        run: ./gradlew -I ${{secrets.JTEST_INIT}} clean assemble jtest "-Dproperty.report.format=sarif"
-        # or uncomment the following to run the specified test configuration:
-        # run: ./gradlew clean assemble jtest "-Djtest.config=builtin://Recommended Rules"
-
-        # -------------------------------------------------
-        # Running with Ant, running with Jtest data file - follow jtest examples README files and run a command
-        # run: 
-          
-      # -------------------------------------------------
-      # Archive the findings reports as job artifact
-      - name: Upload report artifacts
-        uses: actions/upload-artifact@v2
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
         with:
-          name: Report files
-          # path: jtest-demo/target/jtest/report.*
-          path: jtest-demo/build/reports/jtest/report.*
-      
-      # -------------------------------------------------
-      # Upload the findings into the GitHub code scanning alert section
-      - uses: github/codeql-action/upload-sarif@v1
+          java-version: 1.8
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      #####  default gradle build
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+      ##### updated gradle build with separated jtestcli
+      - name: Build with Gradle with jtest plugin
+        run: ./gradlew clean build jtest -I ${{JTEST_INIT}} -Djtest.skip=true
+
+      - name: Run Jtest
+        id: jtest
+        uses: lukasbasiura/run-jjtest-action@1.0.0
         with:
-      #    sarif_file: jtest-demo/target/jtest/report.sarif
-          sarif_file: jtest-demo/build/reports/jtest/report.sarif
+            installDir: C:/Users/lukabass/jtest  # optional (path)
+            input: build/jtest/jtest.data.json  #required (build system dependent) probably can be detected
+            config: "builtin://Recommended Rules" # optonal but practically always used 
+            settings: ./local.properties
+
+      - name: Upload results to GitHub
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: ${{ steps.jtest.outputs.report }}
