@@ -39,7 +39,7 @@ jobs:
 
       ##### updated gradle build with separated jtestcli
       - name: Build with Gradle with jtest plugin
-        run: ./gradlew clean build jtest -I ${{JTEST_INIT}} -Djtest.skip=true
+        run: ./gradlew clean build jtest -I ${{secrets.JTEST_INIT}} -Djtest.skip=true
 
       - name: Run Jtest
         id: jtest
