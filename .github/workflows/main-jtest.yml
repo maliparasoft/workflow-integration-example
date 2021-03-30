@@ -27,11 +27,13 @@ jobs:
     steps:
       #####  default gradle build
       - name: Build with Gradle
-        run: gradlew clean build
+        working-directory: jtest-demo
+        run: ./gradlew clean build
 
       ##### updated gradle build with separated jtestcli
       - name: Build with Gradle with jtest plugin
-        run: gradlew clean build jtest -I ${{secrets.JTEST_INIT}} -Djtest.skip=true
+        working-directory: jtest-demo
+        run: ./gradlew clean build jtest -I ${{secrets.JTEST_INIT}} -Djtest.skip=true
 
       - name: Run Jtest
         id: jtest
