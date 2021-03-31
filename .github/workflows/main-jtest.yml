@@ -41,8 +41,7 @@ jobs:
         with:
             installDir: C:/Users/lukabass/jtest  # optional (path)
             input: build/jtest/jtest.data.json  #required (build system dependent) probably can be detected
-            config: "builtin://Recommended Rules" # optonal but practically always used 
-            settings: ./local.properties
+            testConfig: "builtin://Recommended Rules" # optonal but practically always used 
 
       - name: Upload results to GitHub
         uses: github/codeql-action/upload-sarif@v1
