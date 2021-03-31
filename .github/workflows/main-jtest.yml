@@ -45,7 +45,14 @@ jobs:
             input: build/jtest/jtest.data.json  #required (build system dependent) probably can be detected
             commandLinePattern: '${jtestcli} -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -data "${input}" ${additionalParams}'
 
-      - name: Upload results to GitHub
+      - name: Upload results (SARIF)
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: ${{ steps.jtest.outputs.report }}
+            sarif_file: reports/report.sarif
+
+      # Upload archive with all report files (.xml, .html, .sarif).
+      - name: Archive reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: Static analysis reports
+          path: reports/*.*
