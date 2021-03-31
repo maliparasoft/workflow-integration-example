@@ -41,7 +41,7 @@ jobs:
         with:
             workingDir: jtest-demo
             installDir: C:/Users/lukabass/jtest  # optional (path)
-            input: build/jtest/jtest.data.json  #required (build system dependent) probably can be detected
+            input: "build/jtest/jtest.data.json"  #required (build system dependent) probably can be detected
             testConfig: "builtin://Recommended Rules" # optonal but practically always used 
 
       - name: Upload results to GitHub
