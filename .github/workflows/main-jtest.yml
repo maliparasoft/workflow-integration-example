@@ -41,9 +41,7 @@ jobs:
         with:
             workingDir: jtest-demo
             installDir: C:/Users/lukabass/jtest  # optional (path)
-            testConfig: "builtin://Recommended Rules" # optonal but practically always used 
             input: build/jtest/jtest.data.json  #required (build system dependent) probably can be detected
-            commandLinePattern: '${jtestcli} -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -data "${input}" ${additionalParams}'
 
       - name: Upload results (SARIF)
         uses: github/codeql-action/upload-sarif@v1
