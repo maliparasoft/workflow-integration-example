@@ -26,6 +26,7 @@ jobs:
     # prepare environment
     steps:
       #####  default gradle build
+      - uses: actions/checkout@v2
       - name: Build with Gradle
         working-directory: jtest-demo
         run: ./gradlew clean build
