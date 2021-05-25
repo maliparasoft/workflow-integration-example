@@ -33,17 +33,17 @@ jobs:
       ##### updated gradle build with separated jtestcli
       - name: Build with Gradle with jtest plugin
         working-directory: jtest-demo
-        run: ./gradlew clean build jtest -I ${{secrets.JTEST_INIT}} "-Djtest.skip=true"
+        run: ./gradlew clean build jtest -I C:\apps\jtest\integration\gradle\init.gradle "-Djtest.skip=true"
+        #run: ./gradlew clean build jtest -I ${{secrets.JTEST_INIT}} "-Djtest.skip=true"
 
       - name: Run Jtest
         id: jtest
-        uses: lukasbasiura/run-jjtest-action@1.0.1
+        uses: parasoft/run-jtest-action@0.0.2
         with:
             workingDir: jtest-demo
-            installDir: C:/Users/lukabass/jtest  # optional (path)
+            installDir: C:/apps/jtest  # optional (path)
             testConfig: "builtin://Recommended Rules" # optonal but practically always used 
             input: build/jtest/jtest.data.json  #required (build system dependent) probably can be detected
-            commandLinePattern: '${jtestcli} -config "${testConfig}" -property report.format=${reportFormat} -report "${reportDir}" -data "${input}" ${additionalParams}'
 
       - name: Upload results (SARIF)
         uses: github/codeql-action/upload-sarif@v1
