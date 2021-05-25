@@ -47,12 +47,14 @@ jobs:
             input: build/jtest/jtest.data.json  #required (build system dependent) probably can be detected
 
       - name: Upload results (SARIF)
+        if: always()
         uses: github/codeql-action/upload-sarif@v1
         with:
             sarif_file: jtest-demo/reports/report.sarif
 
       # Upload archive with all report files (.xml, .html, .sarif).
       - name: Archive reports
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: Static analysis reports
