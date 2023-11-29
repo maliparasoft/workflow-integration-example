@@ -34,7 +34,7 @@ public class Bank {
         if (_accounts.size() >= ACCOUNTS_LIMIT) {
             return false;
         }
-//        _logger.log(account);
+        _logger.log(account);
         _accounts.put(account.getID(), account);
         return true;
     }
@@ -43,7 +43,7 @@ public class Bank {
         int size = (list != null) ? list.size() : 0;
         for (int i = 0; i < size; i++) {
             Account account = list.get(i);
-//            _logger.log(account);
+            _logger.log(account);
             _accounts.remove(account.getID());
             i = size;
         }
@@ -59,8 +59,7 @@ public class Bank {
             userAccount = null;
         }
         if (userAccount != null) {
-//             _logger.log(userAccount);
-            System.out.println(userAccount);
+             _logger.log(userAccount);
         }
         return userAccount;
     }

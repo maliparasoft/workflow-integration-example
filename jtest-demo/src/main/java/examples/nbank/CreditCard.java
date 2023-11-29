@@ -10,9 +10,6 @@ package examples.nbank;
  */
 public class CreditCard {
 
-    
-    
-    
     public static final int[] SSN_DIGITS = new int[] { 3, 2, 4 };
 
     public static final int[] ZIP_DIGITS = new int[] { 5 };

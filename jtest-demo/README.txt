@@ -1,4 +1,4 @@
-The description of Ant, Maven, and Gradle integration is available at https://docs.parasoft.com/display/JTEST20202/Integrating+with+Build+Systems
+The description of Ant, Maven, and Gradle integration is available at https://docs.parasoft.com/display/JTEST20232/Integrating+with+Build+Systems
 
 This document describes how to perform static analysis, run tests, and collect coverage information with Jtest - using the "demo" project shipped with the product.
 
@@ -47,7 +47,7 @@ Ant
 Maven
 -------------------------------------------------
 1. Configure your Maven setup by following the Jtest User Guide:
-   https://docs.parasoft.com/display/JTEST20202/Configuring+the+Jtest+Plugin+for+Maven
+   https://docs.parasoft.com/display/JTEST20232/Configuring+the+Jtest+Plugin+for+Maven
 
 2. Run "Demo Configuration" to perform static analysis and collect coverage for unit tests:
 
@@ -104,45 +104,45 @@ Test Impact analysis is supported for Maven and Gradle.
 Windows:
 
 1. Run the tests with Maven or Gradle to collect the baseline data about the tests and coverage:
-   mvnw clean test-compile jtest:agent test jtest:jtest -Djtest.config="builtin://Unit Tests" -Djtest.report=cbt
+   mvnw clean test-compile jtest:agent test jtest:jtest -Djtest.config="builtin://Unit Tests" -Djtest.report=tia
    or
-   gradlew clean jtest-agent test jtest -Djtest.config="builtin://Unit Tests" -Djtest.report=cbt
+   gradlew clean jtest-agent test jtest -Djtest.config="builtin://Unit Tests" -Djtest.report=tia
 
-   Note: As a result, the report.xml and coverage.xml files will be created in the 'cbt' subfolder.
+   Note: As a result, the report.xml and coverage.xml files will be created in the 'tia' subfolder.
 
 2. Modify a source file from the test scope:
    src\main\java\examples\mock\FileExample.java
 
 3. Run the following command to execute the tests affected by your change:
-   mvnw clean cbt:affected-tests test -Dparasoft.coverage.file=cbt/coverage.xml -Dparasoft.test.file=cbt/report.xml
+   mvnw clean tia:affected-tests test -Djtest.referenceCoverageFile=tia/coverage.xml -Djtest.referenceReportFile=tia/report.xml
    or
-   gradlew clean affectedTests test -Dparasoft.coverage.file=cbt/coverage.xml -Dparasoft.test.file=cbt/report.xml
+   gradlew clean affectedTests test -Djtest.referenceCoverageFile=tia/coverage.xml -Djtest.referenceReportFile=tia/report.xml
 
    Tests that aren't affected by your code modification are not executed.
 
 UNIX:
 
 1. Run the tests with Maven or Gradle to collect the baseline data about the tests and coverage:
-   ./mvnw clean test-compile jtest:agent test jtest:jtest -Djtest.config="builtin://Unit Tests" -Djtest.report=cbt
+   ./mvnw clean test-compile jtest:agent test jtest:jtest -Djtest.config="builtin://Unit Tests" -Djtest.report=tia
    or
-   ./gradlew clean jtest-agent test jtest -Djtest.config="builtin://Unit Tests" -Djtest.report=cbt
+   ./gradlew clean jtest-agent test jtest -Djtest.config="builtin://Unit Tests" -Djtest.report=tia
 
-   Note: As a result, the report.xml and coverage.xml files will be created in the 'cbt' subfolder.
+   Note: As a result, the report.xml and coverage.xml files will be created in the 'tia' subfolder.
 
 2. Modify a source file from the test scope:
    src/main/java/examples/mock/FileExample.java
 
 3. Run the following command to execute the tests affected by your change:
-   ./mvnw clean cbt:affected-tests test -Dparasoft.coverage.file=cbt/coverage.xml -Dparasoft.test.file=cbt/report.xml
+   ./mvnw clean tia:affected-tests test -Djtest.referenceCoverageFile=tia/coverage.xml -Djtest.referenceReportFile=tia/report.xml
    or
-   ./gradlew clean affectedTests test -Dparasoft.coverage.file=cbt/coverage.xml -Dparasoft.test.file=cbt/report.xml
+   ./gradlew clean affectedTests test -Djtest.referenceCoverageFile=tia/coverage.xml -Djtest.referenceReportFile=tia/report.xml
 
    Tests that aren't affected by your code modification are not executed.
 
 
 For more information see:
-   https://docs.parasoft.com/display/JTEST20202/Testing+and+Analysis+with+Maven
-   https://docs.parasoft.com/display/JTEST20202/Testing+and+Analysis+with+Gradle
+   https://docs.parasoft.com/display/JTEST20232/Testing+and+Analysis+with+Maven
+   https://docs.parasoft.com/display/JTEST20232/Testing+and+Analysis+with+Gradle
 
 =================================================
 
@@ -239,4 +239,4 @@ UNIX:
      Coverage details are available in report.html
 
 
-For more information see https://docs.parasoft.com/display/JTEST20202/Application+Coverage
+For more information see https://docs.parasoft.com/display/JTEST20232/Application+Coverage
