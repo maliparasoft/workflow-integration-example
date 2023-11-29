@@ -34,7 +34,7 @@ jobs:
       ##### updated gradle build with separated jtestcli
       - name: Build with Gradle with jtest plugin
         working-directory: jtest-demo
-        run: ./gradlew clean build jtest -I C:\apps\jtest\integration\gradle\init.gradle "-Djtest.skip=true"
+        run: ./gradlew clean build jtest -I /home/mali/dev/jt/jtest/integration/gradle/init.gradle "-Djtest.skip=true"
         #run: ./gradlew clean build jtest -I ${{secrets.JTEST_INIT}} "-Djtest.skip=true"
 
       - name: Run Jtest
@@ -42,7 +42,7 @@ jobs:
         uses: parasoft/run-jtest-action@0.0.2
         with:
             workingDir: jtest-demo
-            installDir: C:/apps/jtest  # optional (path)
+            installDir: /home/mali/dev/jt/jtest  # optional (path)
             testConfig: "builtin://Recommended Rules" # optonal but practically always used 
             input: build/jtest/jtest.data.json  #required (build system dependent) probably can be detected
 
