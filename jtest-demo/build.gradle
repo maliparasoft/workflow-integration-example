@@ -7,13 +7,6 @@ apply plugin: 'maven-publish'
 group = theGroup
 version = theVersion
 
-def jtestPluginPath = projectDir.absolutePath + '/../../integration/gradle/jtest.gradle'
-if(file(jtestPluginPath).exists()) {
-    apply from: jtestPluginPath
-} else {
-    logger.warn('The Jtest tasks cannot be executed from the command line. Please verify if the following file is available: \'../../integration/gradle/jtest.gradle\'')
-}
-
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
@@ -48,10 +41,6 @@ repositories {
     mavenCentral()
 }
 
-jar {
-    archiveName = theName + '.jar'
-}
-
 dependencies {
     implementation     'javax.servlet:servlet-api:2.4'
     testImplementation 'org.hamcrest:hamcrest:2.2'
@@ -64,8 +53,3 @@ dependencies {
     testImplementation 'pl.pragmatists:JUnitParams:1.1.1'
 }
 
-processResources {
-    from ('src/test/java') {
-        include '**/*.csv'
-    }
-}
