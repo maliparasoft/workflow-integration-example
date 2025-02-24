@@ -39,7 +39,7 @@ jobs:
 
       - name: Run Jtest
         id: jtest
-        uses: parasoft/run-jtest-action@2.0.0
+        uses: parasoft/run-jtest-action@2.0.2
         with:
             workingDir: jtest-demo
             installDir: /home/mali/dev/jt/jtest  # optional (path)
